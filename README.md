@@ -46,9 +46,9 @@ that make use of innovative user interfaces, such as multi-touch apps." This gui
         pi@raspberrypi ~ $ wget https://raw.github.com/pypa/pip/master/contrib/get-pip.py
         pi@raspberrypi ~ $ sudo python get-pip.py
 
-11. Install [Cython](http://cython.org/), [Pygments](http://pygments.org/), and [docutils](https://pypi.python.org/pypi/docutils). The Pygments and docutils packages are not actually required for Kivy, but the example code you'll execute uses them. This step will take a few minutes:
+11. Install [Cython](http://cython.org/), [Pygments](http://pygments.org/), [docutils](https://pypi.python.org/pypi/docutils) and [GPIO Zero](http://pythonhosted.org/gpiozero). The Pygments, docutils and GPIO Zero packages are not actually required for Kivy, but the example code you'll execute uses them. This step will take a few minutes:
 
-        pi@raspberrypi ~ $ sudo pip install cython pygments docutils
+        pi@raspberrypi ~ $ sudo pip install cython pygments docutils gpiozero
 
 12. Download Kivy and install it globally (this step will take quite a few minutes):
 

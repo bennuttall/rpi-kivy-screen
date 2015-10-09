@@ -10,24 +10,16 @@ from kivy.uix.slider import Slider
 from kivy.clock import Clock
 from kivy.graphics import Color, Rectangle
 
-import RPi.GPIO as GPIO
+import gpiozero
 
 #for now, use a global for blink speed (better implementation TBD):
 speed = 1.0
 
 # Set up GPIO:
-beepPin = 17
-ledPin = 27
-buttonPin = 22
-flashLedPin = 10
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(beepPin, GPIO.OUT)
-GPIO.output(beepPin, GPIO.LOW)
-GPIO.setup(ledPin, GPIO.OUT)
-GPIO.output(ledPin, GPIO.LOW)
-GPIO.setup(flashLedPin, GPIO.OUT)
-GPIO.output(flashLedPin, GPIO.LOW)
-GPIO.setup(buttonPin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+buzzer = gpizero.Buzzer(17)
+led = gpiozero.LED(27)
+button = gpiozero.Button(22)
+flashing_led = gpiozero.LED(10)
 
 # Define some helper functions:
 
@@ -36,25 +28,25 @@ def press_callback(obj):
 	print("Button pressed,", obj.text)
 	if obj.text == 'BEEP!':
 		# turn on the beeper:
-		GPIO.output(beepPin, GPIO.HIGH)
+        buzzer.on()
 		# schedule it to turn off:
 		Clock.schedule_once(buzzer_off, .1)
 	if obj.text == 'LED':
 		if obj.state == "down":
 			print ("button on")
-			GPIO.output(ledPin, GPIO.HIGH)
+            led.on()
 		else:
 			print ("button off")
-			GPIO.output(ledPin, GPIO.LOW)
+            led.off()
 
 def buzzer_off(dt):
-	GPIO.output(beepPin, GPIO.LOW)
+    buzzer.off()
 
 # Toggle the flashing LED according to the speed global
 # This will need better implementation
 def flash(dt):
 	global speed
-	GPIO.output(flashLedPin, not GPIO.input(flashLedPin))
+    flashing_led.toggle()
 	Clock.schedule_once(flash, 1.0/speed)
 
 # This is called when the slider is updated:
@@ -66,10 +58,10 @@ def update_speed(obj, value):
 # Modify the Button Class to update according to GPIO input:
 class InputButton(Button):
 	def update(self, dt):
-		if GPIO.input(buttonPin) == True:
-			self.state = 'normal'
+		if button.is_pressed:
+			self.state = 'down'
 		else:
-			self.state = 'down'			
+			self.state = 'normal'
 
 class MyApp(App):
 
