@@ -16,7 +16,7 @@ import gpiozero
 speed = 1.0
 
 # Set up GPIO:
-buzzer = gpizero.Buzzer(17)
+buzzer = gpiozero.Buzzer(17)
 led = gpiozero.LED(27)
 button = gpiozero.Button(22)
 flashing_led = gpiozero.LED(10)
