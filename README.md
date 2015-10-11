@@ -1,4 +1,6 @@
-# Using Kivy with the official Raspberry Pi Touch Display
+# Using Kivy with the official Raspberry Pi Touch Display - GPIO Zero version
+
+This is a variation based on [Matt Richardson's demo](https://github.com/mrichardson23/rpi-kivy-screen), this one using [GPIO Zero](http://pythonhosted.org/gpiozero/).
 
 [![Demo video](http://img.youtube.com/vi/Eah3Zq18OyM/0.jpg)](http://www.youtube.com/watch?v=Eah3Zq18OyM)
 
